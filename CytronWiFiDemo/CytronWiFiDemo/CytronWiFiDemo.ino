@@ -2,13 +2,16 @@
 #include <CytronWiFiClient.h>
 #include <CytronWiFiServer.h>
 #include <SoftwareSerial.h>
+#include <WiFiClient.h>
+#include <MySQL_Connection.h>
+#include <MySQL_Cursor.h>
 
 const char *ssid = "Embedded_2G";
 const char *pass = "32473242";
 IPAddress ip(192, 168, 1 ,242);
 ESP8266Server server(80);
-
-const char htmlHeader[] = "HTTP/1.1 200 OK\r\n"
+ESP8266Client client;
+const char htmlHeader[] = "POST http://172.23.14.52:80/insert_lost_post.php HTTP/1.1 200 OK\r\n"
                         "Content-Type: text/html\r\n"
                         "Connection: close\r\n\r\n"
                         "<!DOCTYPE HTML>\r\n"
@@ -50,7 +53,8 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  serverTest();
+  //serverTest();
+  //clientTest();
 }
 
 void espblink(int time)
@@ -64,7 +68,7 @@ void espblink(int time)
 
 void serverTest()
 {
-  ESP8266Client client = server.available();
+  client = server.available();
   
   if(client.available()>0)
   {
