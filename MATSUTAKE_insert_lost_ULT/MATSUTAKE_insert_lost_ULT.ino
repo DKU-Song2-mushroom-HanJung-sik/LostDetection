@@ -116,7 +116,7 @@ void loop() {
      }
      else if(sendmessage & 1) {
       data.concat(String(4));
-      sendmessage = sendmessage&0
+      sendmessage = sendmessage&0;
      }
      
      data.concat("&");
